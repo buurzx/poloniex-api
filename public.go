@@ -287,6 +287,9 @@ func (p *Poloniex) public(command string, params url.Values, retval interface{})
 	}
 	params.Add("command", command)
 	req := goreq.Request{Uri: PUBLICURI, QueryString: params, Timeout: 130 * time.Second}
+
+	time.Sleep(200 * time.Millisecond) // Technically 6 req/s allowed, but we're being nice / playing it safe.
+
 	res, err := req.Do()
 	if err != nil {
 		return
