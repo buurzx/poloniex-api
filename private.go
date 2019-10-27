@@ -621,6 +621,8 @@ func (p *Poloniex) private(method string, params url.Values, retval interface{})
 	req.AddHeader("Key", p.Key)
 	req.AddHeader("Content-Length", strconv.Itoa(len(postData)))
 
+	time.Sleep(200 * time.Millisecond) // Technically 6 req/s allowed, but we're being nice / playing it safe.
+
 	res, err := req.Do()
 	if err != nil {
 		return err
